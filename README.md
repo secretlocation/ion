@@ -1,7 +1,7 @@
 ### Vusr Notes:
   * Only pull request to [Vusr-Ion Repo](https://github.com/secretlocation/ion) on `vusr/master` branch
   * Open the Ion/ion Android project in order to open Ion properly, do not try to open the root
-  * In order to build, you need a reference to AndroidAsync(https://github.com/secretlocation/AndroidAsync/). By default the reference 
+  * In order to build, you need a reference to [Vusr-AndroidAsync Repo](https://github.com/secretlocation/AndroidAsync/). By default the reference
   should be two directories up from where Ion is. If you need to change this, edit the settings.gradle file in Ion/ion
 ---
 
