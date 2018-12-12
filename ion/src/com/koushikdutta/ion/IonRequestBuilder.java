@@ -522,7 +522,7 @@ class IonRequestBuilder implements Builders.Any.B, Builders.Any.F, Builders.Any.
             tracker.setDataTracker(new DataTracker() {
                 int lastPercent;
                 @Override
-                public void onData(final int totalBytesRead) {
+                public void onData(final long totalBytesRead) {
                     assert Thread.currentThread() != Looper.getMainLooper().getThread();
                     // if the requesting context dies during the transfer... cancel
                     String deadReason = contextReference.isAlive();
