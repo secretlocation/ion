@@ -26,7 +26,6 @@ import com.koushikdutta.ion.bitmap.BitmapInfo;
 import com.koushikdutta.ion.bitmap.IonBitmapCache;
 import com.koushikdutta.ion.builder.Builders;
 import com.koushikdutta.ion.builder.LoadBuilder;
-import com.koushikdutta.ion.conscrypt.ConscryptMiddleware;
 import com.koushikdutta.ion.cookie.CookieMiddleware;
 import com.koushikdutta.ion.loader.AssetLoader;
 import com.koushikdutta.ion.loader.AsyncHttpRequestFactory;
@@ -41,7 +40,6 @@ import org.apache.http.conn.ssl.BrowserCompatHostnameVerifier;
 
 import java.io.File;
 import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -51,7 +49,6 @@ import java.util.WeakHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import javax.net.ssl.SSLContext;
 
 /**
  * Created by koush on 5/21/13.
@@ -125,7 +122,6 @@ public class Ion {
     }
 
     AsyncHttpClient httpClient;
-    ConscryptMiddleware conscryptMiddleware;
     CookieMiddleware cookieMiddleware;
     ResponseCacheMiddleware responseCache;
     FileCache storeCache;
@@ -155,7 +151,6 @@ public class Ion {
         httpClient = new AsyncHttpClient(new AsyncServer("ion-" + name));
         httpClient.getSSLSocketMiddleware().setHostnameVerifier(new BrowserCompatHostnameVerifier());
         httpClient.getSSLSocketMiddleware().setSpdyEnabled(false);
-        httpClient.insertMiddleware(conscryptMiddleware = new ConscryptMiddleware(context, httpClient.getSSLSocketMiddleware()));
 
         File ionCacheDir = new File(context.getCacheDir(), name);
         try {
@@ -435,10 +430,6 @@ public class Ion {
         return cookieMiddleware;
     }
 
-    public ConscryptMiddleware getConscryptMiddleware() {
-        return conscryptMiddleware;
-    }
-
     /**
      * Get the AsyncHttpClient object in use by this Ion instance
      * @return
@@ -478,11 +469,6 @@ public class Ion {
 
         public ResponseCacheMiddleware getResponseCache() {
             return responseCache;
-        }
-
-        public SSLContext createSSLContext(String algorithm) throws NoSuchAlgorithmException {
-            conscryptMiddleware.initialize();
-            return SSLContext.getInstance(algorithm);
         }
 
         /**

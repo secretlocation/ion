@@ -29,15 +29,7 @@ dependencies {
     implementation 'com.android.support:support-v4:+'
     implementation project(':AndroidAsync:AndroidAsync')
     implementation 'com.google.code.gson:gson:2.3'
-    // Use play services if the linking app is using it. When play services isn't available
-    // ConscryptMiddleware will throw ClassNotFoundErrors upon attempting to load it at runtime.
-    // Conscrypt will fail to load, and the system SSL stack will be used.
-    // "provided" means the library is provided by the platform. Typically this is used for
-    // actual platform libraries like framework.jar. But this is a clever way of having a soft
-    // dependency to play services.
-    compileOnly 'com.google.android.gms:play-services-base:10.+'
-    // for when i wanna test this against gms conscrypt
-    androidTestImplementation 'com.google.android.gms:play-services-base:10.+'
+
     // mockito nom nom oh god im drunk
     androidTestImplementation 'org.mockito:mockito-core:1.+'
     androidTestImplementation 'com.google.dexmaker:dexmaker:1.2'
